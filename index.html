@@ -1,0 +1,202 @@
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link href="magic-check.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="range-slider.min.css">
+    <link rel="stylesheet" type="text/css" href="nice-select.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="range-slider.min.js"></script>
+    <script src="jquery.nice-select.min.js"></script>
+    <script src="FontPicker.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+</head>
+<body>
+    <div id="navigation">
+        <div id="leftnav">
+            <div id="logo"><img src="assets/logo.svg"></div>
+            <a href="/test" class="navactive">Editor</a>
+            <a href="/test">GitHub</a>
+            <a href="/test">Twitter</a>      
+            <a href="/test">Dribbble</a>  
+        </div>
+        <div id="rightnav">
+            <div id="loop"><img src="assets/heart.svg"> Support this project</div>
+            <div id="download-button"><img src="assets/download.svg"> Download mockup</div>
+        </div>
+    </div>
+    <div id="settings-modal" class="settings-off">
+        <img class="close-modal" src="assets/close.svg">
+        <p>Settings</p>
+        <p class="modal-head">Video length</p>
+        <div id="video-length">
+            <input value="5.00" type="number">
+        </div>
+        <div id="footage-length" onclick="setTime()">
+            Set to footage length
+        </div>
+        <p class="modal-head guides">Alignment guides</p>
+        <input class="magic-checkbox" onclick="activeGuides()" id="1" type="checkbox" checked>
+        <label for="1"></label>
+        <label for="1" id="check-label">Show and snap to guides</label>
+        <div id="save-button">Save</div>
+    </div>
+    <div id="download-modal" class="download-off long-panel">
+        <img class="close-modal" src="assets/close.svg">
+        <p>Download settings</p>
+        <div id="format-select">
+        <p class="modal-head">Format</p>
+        <div id="format-options">
+            <div id="video-format" class="active-format format-select video-format">Video</div>
+            <div id="gif-format" class="format-select gif-format">GIF</div>
+        </div>
+        </div>
+        <div id="video-type">
+            <div class="radio-input">
+                <input class="magic-radio" name="format" type="radio" name="radio" id="2" value="option" checked>
+                <label for="2" id="switch-label">WEBM format <span>(fastest)</span></label>
+            </div>
+            <div class="radio-input">
+                <input class="magic-radio" name="format" type="radio" name="radio" id="3" value="option">
+                <label for="3" id="switch-label">MP4 format</label>
+            </div>
+        </div>
+        <div id="download-final">Download</div>
+    </div>
+    <div class="settings-back opacity-off"></div>
+    <div class="opacity-back opacity-off"></div>
+    <div class="text-options text-off"><img class="arrow-options" src="assets/arrow-bottom.svg"><div id="font-picker"></div><div id="text-color"><img id="text-color-icon" src="assets/text-color.svg"><div id="color-show"></div></div><img id="set-bold" class="unset" onclick="setBold()" src="assets/bold.svg"><img id="set-italic" class="unset" onclick="setItalic()" src="assets/italic.svg"><img id="set-under" class="unset" onclick="setUnder()" src="assets/underline.svg"><div id="align-left" onclick="alignText('left')"><img class="align-options" src="assets/align-left.svg"></div><div id="align-center" onclick="alignText('center')"><img class="unset align-options" src="assets/align-center.svg"></div><div id="align-right" onclick="alignText('right')"><img class="unset align-options" src="assets/align-right.svg"></div><img src="assets/trash.svg" id="trash-button" onclick=deleteTextbox()></div>
+    <div class="image-options image-off"><img class="arrow-options" class="arrow-options" src="assets/arrow-bottom.svg"><img src="assets/trash.svg" id="trash-img" onclick=deleteImage()></div>
+    <div id="toolbar">
+        <div class="tool-item cursor tool-active"><svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4L12.2483 23.0912L15.1767 14.7775L23.7983 11.9537L4 4Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+        <div class="tool-item maxzoom" onclick="canvasZoom()"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+<path d="M13.2917 22.9583C18.6304 22.9583 22.9583 18.6304 22.9583 13.2917C22.9583 7.95291 18.6304 3.625 13.2917 3.625C7.95291 3.625 3.625 7.95291 3.625 13.2917C3.625 18.6304 7.95291 22.9583 13.2917 22.9583Z" stroke="#8891AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.3734 25.3754L20.1172 20.1191" stroke="#8891AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.293 9.66699V16.917" stroke="#8891AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.66797 13.292H16.918" stroke="#8891AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></div>
+        <span class="tool-div"></span>
+        <div class="tool-item newtext"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+<path d="M1.57031 1H20.5485" stroke="#8891AF" stroke-width="2" stroke-linecap="round"/>
+<path d="M11.0625 1.64746V18.2534" stroke="#8891AF" stroke-width="2" stroke-linecap="round"/>
+</svg></div>
+        <div class="tool-item newimg" onclick="document.getElementById('newimage').click();"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.375 3.375H5.625C4.38236 3.375 3.375 4.38236 3.375 5.625V21.375C3.375 22.6176 4.38236 23.625 5.625 23.625H21.375C22.6176 23.625 23.625 22.6176 23.625 21.375V5.625C23.625 4.38236 22.6176 3.375 21.375 3.375Z" stroke="#8891AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.56641 11.251C10.4984 11.251 11.2539 10.4955 11.2539 9.56348C11.2539 8.6315 10.4984 7.87598 9.56641 7.87598C8.63443 7.87598 7.87891 8.6315 7.87891 9.56348C7.87891 10.4955 8.63443 11.251 9.56641 11.251Z" fill="#8891AF"/>
+<path d="M23.6211 16.876L17.9961 11.251L5.62109 23.626" stroke="#8891AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></div>
+        <span class="tool-div"></span>
+        <div class="tool-item toolsett"><svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.5 16.875C15.364 16.875 16.875 15.364 16.875 13.5C16.875 11.636 15.364 10.125 13.5 10.125C11.636 10.125 10.125 11.636 10.125 13.5C10.125 15.364 11.636 16.875 13.5 16.875Z" stroke="#8891AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M21.825 16.875C21.6752 17.2143 21.6306 17.5907 21.6967 17.9557C21.7629 18.3206 21.9369 18.6574 22.1962 18.9225L22.2637 18.99C22.4729 19.199 22.6389 19.4471 22.7521 19.7203C22.8654 19.9934 22.9236 20.2862 22.9236 20.5819C22.9236 20.8776 22.8654 21.1703 22.7521 21.4435C22.6389 21.7166 22.4729 21.9648 22.2637 22.1737C22.0548 22.3829 21.8066 22.5489 21.5335 22.6621C21.2603 22.7754 20.9676 22.8336 20.6719 22.8336C20.3762 22.8336 20.0834 22.7754 19.8103 22.6621C19.5371 22.5489 19.289 22.3829 19.08 22.1737L19.0125 22.1062C18.7474 21.8469 18.4106 21.6729 18.0457 21.6067C17.6807 21.5406 17.3043 21.5852 16.965 21.735C16.6323 21.8776 16.3485 22.1144 16.1486 22.4162C15.9487 22.7181 15.8414 23.0717 15.84 23.4337V23.625C15.84 24.2217 15.6029 24.794 15.181 25.216C14.759 25.6379 14.1867 25.875 13.59 25.875C12.9933 25.875 12.421 25.6379 11.999 25.216C11.5771 24.794 11.34 24.2217 11.34 23.625V23.5237C11.3313 23.1514 11.2108 22.7902 10.9941 22.4873C10.7774 22.1843 10.4746 21.9536 10.125 21.825C9.78568 21.6752 9.40928 21.6306 9.04434 21.6967C8.67939 21.7629 8.34264 21.9369 8.0775 22.1962L8.01 22.2637C7.80103 22.4729 7.55289 22.6389 7.27974 22.7521C7.00659 22.8654 6.71381 22.9236 6.41812 22.9236C6.12244 22.9236 5.82965 22.8654 5.55651 22.7521C5.28336 22.6389 5.03521 22.4729 4.82625 22.2637C4.61705 22.0548 4.45109 21.8066 4.33787 21.5335C4.22464 21.2603 4.16635 20.9676 4.16635 20.6719C4.16635 20.3762 4.22464 20.0834 4.33787 19.8103C4.45109 19.5371 4.61705 19.289 4.82625 19.08L4.89375 19.0125C5.1531 18.7474 5.32708 18.4106 5.39325 18.0457C5.45943 17.6807 5.41475 17.3043 5.265 16.965C5.12239 16.6323 4.8856 16.3485 4.58377 16.1486C4.28195 15.9487 3.92826 15.8414 3.56625 15.84H3.375C2.77826 15.84 2.20597 15.6029 1.78401 15.181C1.36205 14.759 1.125 14.1867 1.125 13.59C1.125 12.9933 1.36205 12.421 1.78401 11.999C2.20597 11.5771 2.77826 11.34 3.375 11.34H3.47625C3.84862 11.3313 4.20976 11.2108 4.51271 10.9941C4.81567 10.7774 5.04643 10.4746 5.175 10.125C5.32475 9.78568 5.36943 9.40928 5.30325 9.04434C5.23708 8.67939 5.0631 8.34264 4.80375 8.0775L4.73625 8.01C4.52705 7.80103 4.36109 7.55289 4.24787 7.27974C4.13464 7.00659 4.07635 6.71381 4.07635 6.41812C4.07635 6.12244 4.13464 5.82965 4.24787 5.55651C4.36109 5.28336 4.52705 5.03521 4.73625 4.82625C4.94521 4.61705 5.19336 4.45109 5.46651 4.33787C5.73965 4.22464 6.03244 4.16635 6.32812 4.16635C6.62381 4.16635 6.91659 4.22464 7.18974 4.33787C7.46289 4.45109 7.71103 4.61705 7.92 4.82625L7.9875 4.89375C8.25264 5.1531 8.58939 5.32708 8.95434 5.39325C9.31928 5.45943 9.69568 5.41475 10.035 5.265H10.125C10.4577 5.12239 10.7415 4.8856 10.9414 4.58377C11.1413 4.28195 11.2486 3.92826 11.25 3.56625V3.375C11.25 2.77826 11.4871 2.20597 11.909 1.78401C12.331 1.36205 12.9033 1.125 13.5 1.125C14.0967 1.125 14.669 1.36205 15.091 1.78401C15.5129 2.20597 15.75 2.77826 15.75 3.375V3.47625C15.7514 3.83826 15.8587 4.19195 16.0586 4.49377C16.2585 4.7956 16.5423 5.03239 16.875 5.175C17.2143 5.32475 17.5907 5.36943 17.9557 5.30325C18.3206 5.23708 18.6574 5.0631 18.9225 4.80375L18.99 4.73625C19.199 4.52705 19.4471 4.36109 19.7203 4.24787C19.9934 4.13464 20.2862 4.07635 20.5819 4.07635C20.8776 4.07635 21.1703 4.13464 21.4435 4.24787C21.7166 4.36109 21.9648 4.52705 22.1737 4.73625C22.3829 4.94521 22.5489 5.19336 22.6621 5.46651C22.7754 5.73965 22.8336 6.03244 22.8336 6.32812C22.8336 6.62381 22.7754 6.91659 22.6621 7.18974C22.5489 7.46289 22.3829 7.71103 22.1737 7.92L22.1062 7.9875C21.8469 8.25264 21.6729 8.58939 21.6067 8.95434C21.5406 9.31928 21.5852 9.69568 21.735 10.035V10.125C21.8776 10.4577 22.1144 10.7415 22.4162 10.9414C22.7181 11.1413 23.0717 11.2486 23.4337 11.25H23.625C24.2217 11.25 24.794 11.4871 25.216 11.909C25.6379 12.331 25.875 12.9033 25.875 13.5C25.875 14.0967 25.6379 14.669 25.216 15.091C24.794 15.5129 24.2217 15.75 23.625 15.75H23.5237C23.1617 15.7514 22.8081 15.8587 22.5062 16.0586C22.2044 16.2585 21.9676 16.5423 21.825 16.875V16.875Z" stroke="#8891AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</div>
+    </div>
+    <div id="panel">
+        <div id="deviceselect" class="section">
+                    <input accept="video/mp4, video/quicktime, video/webm" style="display:none;" type="file" id="screen-upload">
+            <p class="section-head">Device</p>
+            <div class="select old-select">
+                <div class="option selected" value="iphone 11 pro space gray"><img src="assets/iphone11prosg_thumb.png"><div class="liinline">iPhone 11 <br><span>2436 × 1125</span></div></div>
+                <div class="option" value="macbook pro space gray"><img src="assets/macbookprosg_thumb.png"><div class="liinline">Macbook Pro Space Gray <br><span>2880 x 1800</span></div></div>
+                <div class="option" value="macbook pro silver"><img src="assets/macbookprosilver_thumb.png"><div class="liinline">Macbook Pro Silver <br><span>2880 x 1800</span></div></div>
+                <div class="option" value="apple imac"><img src="assets/appleimac_thumb.png"><div class="liinline">Apple iMac <br><span>2880 x 1800</span></div></div>
+                <div class="option" value="ipad space gray"><img src="assets/appleipadsg_thumb.png"><div class="liinline">iPad Space Gray<br><span>2048 x 1536</span></div></div>
+                <div class="option" value="ipad silver"><img src="assets/appleipadsilver_thumb.png"><div class="liinline">iPad Silver<br><span>2048 x 1536</span></div></div>
+                <div class="option" value="ipad gold"><img src="assets/appleipadgold_thumb.png"><div class="liinline">iPad Gold<br><span>2048 x 1536</span></div></div>
+                <div class="option" value="dell xps 15"><img src="assets/dellxps15_thumb.png"><div class="liinline">Dell XPS 15<br><span>3840 x 2160</span></div></div>
+                <div class="option" value="google pixel 4"><img src="assets/googlepixel4_thumb.png"><div class="liinline">Google Pixel 4<br><span>1440 x 3040</span></div></div>
+                <div class="option" value="huawei p8 black"><img src="assets/huwaweip8black_thumb.png"><div class="liinline">Huawei P8 Black<br><span>1080 x 1920</span></div></div>
+                <div class="option" value="huawei p8 white"><img src="assets/huwaweip8white_thumb.png"><div class="liinline">Huawei P8 White<br><span>1080 x 1920</span></div></div>
+                <div class="option" value="microsoft surface book"><img src="assets/microsoftsurfacebook_thumb.png"><div class="liinline">Microsoft Surface Book<br><span>3000 x 2000</span></div></div>
+                <div class="option" value="samsung galaxy note 10"><img src="assets/samsunggalaxynote10_thumb.png"><div class="liinline">Samsung Galaxy Note 10<br><span>1080 x 2280</span></div></div>
+                <div class="option" value="apple watch black"><img src="assets/applewatchblack_thumb.png"><div class="liinline">Apple Watch Black<br><span>272 x 340</span></div></div>
+                <div class="option" value="apple watch rose gold"><img src="assets/applewatchrosegold_thumb.png"><div class="liinline">Apple Watch Rose Gold<br><span>272 x 340</span></div></div>
+                <div class="option" value="apple watch white"><img src="assets/applewatchwhite_thumb.png"><div class="liinline">Apple Watch White<br><span>272 x 340</span></div></div>
+                <div class="option" value="dell ultrasharp monitor"><img src="assets/dellultrasharpmonitor_thumb.png"><div class="liinline">Dell UltraSharp Monitor<br><span>3840 x 2160</span></div></div>
+                <div class="option" value="iphone 8"><img src="assets/appleiphone8_thumb.png"><div class="liinline">iPhone 8<br><span>1334 x 750</span></div></div>
+            </div>
+        </div>
+        <div id="uploadarea" class="section">
+            <p class="section-head">Device screen</p>
+            <div id="upload" class="upload-modal" onclick="document.getElementById('screen-upload').click();">
+                <img id="uploadicon" src="assets/upload.svg">
+                <video id="uploadsrc" class="hiddenvideo" autoplay="false"></video>
+                <p>Drag and drop your video</p>
+                <span>MP4, MOV, or WEBM only</span>
+            </div>
+        </div>
+        <div id="canvassize" class="section">
+            <p class="section-head">Canvas settings</p>
+            <div class="canvas-section">
+                <span class="canvas-label" id="preset-label">Preset</span>
+                <div class="select old-select canvas-select">
+                    <div class="option selected" value="twitter">Twitter post</div>
+                    <div class="option" value="dribbble">Dribbble shot</div>
+                    <div class="option" value="fb">Facebook post</div>
+                    <div class="option" value="linkedin">Linkedin post</div>
+                    <div class="option" value="ig-post">Instagram post</div>
+                    <div class="option" value="ig-story">Instagram story</div>
+                    <div class="option" value="snap">Snapchat post</div>
+                </div>
+            </div>
+            <div class="canvas-section">
+                <span class="canvas-label">Size</span>
+                <div id="size-h">
+                    <input type="number" min="1" value=1024 onchange="canvasResize()" onkeydown="canvasResize()" onpaste="canvasResize()" oninput="canvasResize()">
+                </div>
+                <div id="size-w">
+                    <input type="number" min="1" value=1280 onchange="canvasResize()" onkeydown="canvasResize()" onpaste="canvasResize()" oninput="canvasResize()">
+                </div>
+            </div>
+            <div class="canvas-section">
+                <span class="canvas-label">Color</span>
+                    <div id="color-opacity">
+                        <input type="number" max="200" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" value=100>
+                    </div>
+                    <div id="canvas-color">
+                        <div id="color-side" class="color-picker"></div>
+                        <input value="#FFFFFF" disabled="disabled">
+                    </div>
+            </div>
+            <div class="canvas-section">
+                <span class="canvas-label">Zoom</span>
+                    <div id="zoom-perc">
+                        <input type="number" max="100" maxlength="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" value=100>
+                    </div>
+                    <div id="select-size">
+                    </div>
+            </div>
+        </div>
+        
+        <div id="backselect" class="section">
+            <p class="section-head">Background image</p>
+            <div id="upload2" class="upload-modal" onclick="document.getElementById('backimg-input').click();">
+                <img src="assets/trash.svg" id="del-backimg" class="hide-del">
+                <input type="file" id="backimg-input" style="display: none;" accept="image/png, image/jpg">
+                <img id="preview-image" class="imageoff">
+                <img id="backuploadico" src="assets/upload.svg">
+                <p>Drag and drop your image</p>
+                <span>PNG, or JPG only</span>
+            </div>
+
+        </div>
+    </div>
+    <div id="canvas-area">
+        <input type="file" id="newimage" style="display: none;"/>
+        <button style="display:none" id="json-import" onclick="importJSON()">Import</button>
+        <button style="display:none" id="json-export" onclick="exportJSON()">Export</button>
+        <canvas id="canvas" ></canvas>
+        <div id="zoomalert" class="hiddenzoom"><img src="assets/emoji.png"> Hold <span>Alt</span> or <span>Option</span> to zoom out</div>
+    </div>
+    <img id="phone-img" src="assets/iphone11prosg.png">
+    <script src="fabric.js"></script>
+    <script src="convert.js"></script>
+    <script src="CanvasRecord.js"></script>
+    <script src="main.js"></script>
+</body>
