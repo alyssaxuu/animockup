@@ -12,6 +12,7 @@ Built using:
 - [FFMPEG](https://www.ffmpeg.org/)
 - [Jquery Nice Select](https://hernansartorio.com/jquery-nice-select/)
 - [Range Slider](https://github.com/agrinko/range-slider)
+- [Font Picker[(https://github.com/samuelmeuli/font-picker)
 
 Made by [Alyssa X](https://alyssax.com)
 
