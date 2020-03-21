@@ -654,7 +654,7 @@ newvideo.addEventListener('loadeddata', function() {
                 pickr.setColor(selected_text.fill);
                 var scaleX = document.getElementById("canvas").getBoundingClientRect().width / document.getElementById("canvas").offsetWidth;
                 var scaleY = document.getElementById("canvas").getBoundingClientRect().height / document.getElementById("canvas").offsetHeight;
-                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2);
+                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2)+10;
                 text_options.style.top = (selected_text.get('top') * scaleY) + document.getElementById("canvas").getBoundingClientRect().top - 70;
             } else if (mod_object.get('type') == "image" && mod_object != imgInstance) {
                 selected_image = canvas.getActiveObject();
@@ -697,10 +697,12 @@ newvideo.addEventListener('loadeddata', function() {
                         }
                     }
                     var text_options = document.getElementsByClassName("text-options")[0];
-                    document.getElementById("color-show").style.backgroundColor = selected_text.fill;
-                    pickr.setColor(selected_text.fill);
-                    text_options.style.left = selected_text.get('left') + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX) / 2) - (text_options.getBoundingClientRect().width / 2);
-                    text_options.style.top = selected_text.get('top') + document.getElementById("canvas").getBoundingClientRect().top - 70;
+                document.getElementById("color-show").style.backgroundColor = selected_text.fill;
+                pickr.setColor(selected_text.fill);
+                var scaleX = document.getElementById("canvas").getBoundingClientRect().width / document.getElementById("canvas").offsetWidth;
+                var scaleY = document.getElementById("canvas").getBoundingClientRect().height / document.getElementById("canvas").offsetHeight;
+                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2)+10;
+                text_options.style.top = (selected_text.get('top') * scaleY) + document.getElementById("canvas").getBoundingClientRect().top - 70;
                     if (!text_active) {
                         text_active = true;
                         text_options.classList.remove("text-off");
