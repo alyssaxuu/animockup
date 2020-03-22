@@ -528,6 +528,7 @@ newvideo.loop = true;
 document.getElementById("panel").appendChild(newvideo);
 canvas.add(imgInstance).setActiveObject(imgInstance);
 imgInstance.center();
+imgInstance.setCoords();
 offset_footage.x = imgInstance.get('left') + (((imgInstance.get('width') * imgInstance.scaleX) / 100) * mockup_margin.iphone11prosg.left);
 offset_footage.y = imgInstance.get('top') + (((imgInstance.get('height') * imgInstance.scaleY) / 100) * mockup_margin.iphone11prosg.top);
 offset_footage.width = (imgInstance.get('width') * imgInstance.scaleX) - ((imgInstance.get('width') * imgInstance.scaleX) / 100) * mockup_margin.iphone11prosg.right;
@@ -535,8 +536,14 @@ offset_footage.height = (imgInstance.get('height') * imgInstance.scaleY) - ((img
 newvideo.addEventListener('loadeddata', function() {
     if (!video_loaded) {
         video_loaded = true;
+        newvideo.play();
         newvideo.setAttribute("width", newvideo.videoWidth);
         newvideo.setAttribute("height", newvideo.videoHeight);
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+        var extraH = 0;
+        if (isFirefox) {
+            extraH = 1350;
+        }
         var video = new fabric.Image(newvideo, {
             left: offset_footage.x,
             top: offset_footage.y,
@@ -547,12 +554,14 @@ newvideo.addEventListener('loadeddata', function() {
             centeredScaling: true,
             lockScalingFlip: true,
             hasRotationPoint: true,
+            width: newvideo.videoWidth,
+            height: newvideo.videoHeight-extraH,
             name: 'video'
         });
-        video.scaleToWidth(offset_footage.width);
+        video.setCoords();   
         canvas.add(video);
+        video.setCoords();
         canvas.sendBackwards(video);
-        video.getElement().play();
         videolength = canvas.getItemByName('video')._originalElement.duration;
         imgInstance.setControlsVisibility({
             bl: true,
@@ -565,6 +574,10 @@ newvideo.addEventListener('loadeddata', function() {
             mt: false,
             mtr: false,
         });
+        video.set({
+            scaleX: offset_footage.width/video.width,
+            scaleY: offset_footage.height/video.height,
+        })
     } else {
         video = canvas.getItemByName('video');
         newvideo.setAttribute("width", newvideo.videoWidth);
@@ -654,7 +667,7 @@ newvideo.addEventListener('loadeddata', function() {
                 pickr.setColor(selected_text.fill);
                 var scaleX = document.getElementById("canvas").getBoundingClientRect().width / document.getElementById("canvas").offsetWidth;
                 var scaleY = document.getElementById("canvas").getBoundingClientRect().height / document.getElementById("canvas").offsetHeight;
-                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2)+10;
+                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2);
                 text_options.style.top = (selected_text.get('top') * scaleY) + document.getElementById("canvas").getBoundingClientRect().top - 70;
             } else if (mod_object.get('type') == "image" && mod_object != imgInstance) {
                 selected_image = canvas.getActiveObject();
@@ -697,12 +710,10 @@ newvideo.addEventListener('loadeddata', function() {
                         }
                     }
                     var text_options = document.getElementsByClassName("text-options")[0];
-                document.getElementById("color-show").style.backgroundColor = selected_text.fill;
-                pickr.setColor(selected_text.fill);
-                var scaleX = document.getElementById("canvas").getBoundingClientRect().width / document.getElementById("canvas").offsetWidth;
-                var scaleY = document.getElementById("canvas").getBoundingClientRect().height / document.getElementById("canvas").offsetHeight;
-                text_options.style.left = (selected_text.get('left') * scaleX) + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX * scaleX) / 2) - (text_options.getBoundingClientRect().width / 2)+10;
-                text_options.style.top = (selected_text.get('top') * scaleY) + document.getElementById("canvas").getBoundingClientRect().top - 70;
+                    document.getElementById("color-show").style.backgroundColor = selected_text.fill;
+                    pickr.setColor(selected_text.fill);
+                    text_options.style.left = selected_text.get('left') + document.getElementById("canvas").getBoundingClientRect().left + ((selected_text.get('width') * selected_text.scaleX) / 2) - (text_options.getBoundingClientRect().width / 2);
+                    text_options.style.top = selected_text.get('top') + document.getElementById("canvas").getBoundingClientRect().top - 70;
                     if (!text_active) {
                         text_active = true;
                         text_options.classList.remove("text-off");
@@ -1562,9 +1573,6 @@ function updateScreen() {
     var mockup_y = imgInstance.get('top');
     var mockup_width = imgInstance.width * imgInstance.scaleX;
     var mockup_height = imgInstance.height * imgInstance.scaleY;
-    console.log(mockup_width+" "+mockup_width/imgInstance.scaleX);
-    console.log(mockup_height+" "+mockup_height/imgInstance.scaleY);
-    console.log(imgInstance.scaleY);
     offset_footage.x = mockup_x + (((mockup_width) / 100) * device_margin.left);
     offset_footage.y = mockup_y + (((mockup_height) / 100) * device_margin.top);
     offset_footage.width = (mockup_width) - ((mockup_width) / 100) * device_margin.right;
