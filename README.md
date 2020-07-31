@@ -16,6 +16,3 @@ Built using:
 - [Pickr](https://github.com/Simonwep/pickr)
 
 Made by [Alyssa X](https://alyssax.com)
-
-#
-🚨🚨🚨  _FYI: Due to COVID-19 making me get stranded abroad (making my stay very expensive) I am available for contract work at the moment to get immediate funds for food, accommodation, medication, and more. Feel free to contact me at  [hi@alyssax.com](mailto:hi@alyssax.com)_
