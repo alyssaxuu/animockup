@@ -1732,8 +1732,12 @@ function canvasZoom(toggle) {
         document.body.style.cursor = 'zoom-in';
         canvas.renderAll();
         canvas.interactive = false;
+        canvas.getItemByName('mockup').lockMovementX = true;
+        canvas.getItemByName('mockup').lockMovementY = true;
     } else {
         canvas.interactive = true;
+        canvas.getItemByName('mockup').lockMovementX = false;
+        canvas.getItemByName('mockup').lockMovementY = false;
     }
 }
 // Reset cursor
