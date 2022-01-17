@@ -1,0 +1,447 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"/>
+    <link rel="stylesheet" href="nice-select.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>Animockup - Create product teasers with animated mockups</title>
+    <meta name="title" content="Animockup - Create product teasers with animated mockups">
+    <meta name="description" content="Create your free animated product teaser with Animockup. Make videos and animated GIFs for social media, landing pages, Dribbble, Product Hunt, and more.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://animockup.com/">
+    <meta property="og:title" content="Animockup - Create product teasers with animated mockups">
+    <meta property="og:description" content="Create your free animated product teaser with Animockup. Make videos and animated GIFs for social media, landing pages, Dribbble, Product Hunt, and more.">
+    <meta property="og:image" content="https://animockup.com/meta.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://animockup.com/">
+    <meta property="twitter:title" content="Animockup - Create product teasers with animated mockups">
+    <meta property="twitter:description" content="Create your free animated product teaser with Animockup. Make videos and animated GIFs for social media, landing pages, Dribbble, Product Hunt, and more.">
+    <meta property="twitter:image" content="https://animockup.com/meta.png">
+  </head>
+  <body>
+    <input type="file" id="upload-screen" style="display:none;">
+    <input type="file" id="upload-image" style="display:none;">
+    <div id="mobile-disclaimer">
+      <div id="mobile-disclaimer-modal">
+        <div id="upgrade-emoji">&#129300;</div>
+        <div id="upgrade-title">Animockup isn't optimized for mobile</div>
+        <div id="upgrade-subtitle">You need to use a computer to be able to create amazing mockups with Animockup.</div>
+        <a href="https://twitter.com/alyssaxuu" id="mobile-button">Other products by the maker</a>
+      </div>
+      <div id="mobile-overlay"></div>
+    </div>
+    <div id="safari-disclaimer">
+      <div id="mobile-disclaimer-modal">
+        <div id="upgrade-emoji">&#128549;</div>
+        <div id="upgrade-title">No Safari support</div>
+        <div id="upgrade-subtitle">Unfortunately, Animockup doesn’t work in Safari.<br><br>You can try using Animockup in another browser if you’d like to create amazing mockups.</div>
+        <a href="https://twitter.com/alyssaxuu" id="mobile-button">Other products by the maker</a>
+      </div>
+      <div id="mobile-overlay"></div>
+    </div>
+    <div id="upgrade-popup">
+      <div id="upgrade-modal">
+        <img id="close-upgrade" src="assets/close.svg">
+        <div id="upgrade-emoji">✨</div>
+        <div id="upgrade-title">Go PRO</div>
+        <div id="upgrade-subtitle">Make the most out of Animockup.</div>
+        <div id="upgrade-price">$10<span>/month</span></div>
+        <hr>
+        <div id="upgrade-items">
+          <div class="upgrade-item"><img src="assets/check.svg"> Remove the watermark</div>
+          <div class="upgrade-item"><img src="assets/check.svg"> 50+ device mockups to use</div>
+          <div class="upgrade-item"><img src="assets/check.svg"> MP4 export</div>
+          <div class="upgrade-item"><img src="assets/check.svg"> High quality export</div>
+          <div class="upgrade-item"><img src="assets/check.svg"> Support the developer 👋</div>
+        </div>
+        <div id="upgrade-button">Upgrade</div>
+        <div id="sign-in-already">Already have an account? <span>Sign in</span></div>
+      </div>
+      <div id="upgrade-overlay"></div>
+    </div>
+    <div id="download-popup">
+      <div id="download-modal">
+        <div id="download-preview">
+            <canvas id="canvasrecord"></canvas>
+        </div>
+        <div id="download-settings">
+          <img id="close-settings" src="assets/close.svg">
+          <div id="download-info">
+            <div id="heading">Download settings</div>
+            <div id="body-text">Just some final details before you can download your video &#9996;</div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-head">Basic</div>
+            <div id="panel-animation-options">
+              <div class="section-input">
+                <div class="section-label">Duration</div>
+                <div class="section-right">
+                  <div class='dimensions' data-label='s'><input id='video-duration-3' value='2'></div>
+                </div>
+              </div>
+              <div class="section-input">
+                <div class="section-label">Format</div>
+                <div class="section-right">
+                  <div class="select-6">
+                    <div class="option option-3 selected" value="webm">WEBM video</div>
+                    <div class="option option-3" value="mp4">MP4 video <span class="pro-label">PRO</span></div>
+                    <div class="option option-3 " value="gif">Animated GIF <span class="pro-label">PRO</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel-section" style="border:0px!important;">
+            <div class="panel-head">Advanced</div>
+            <div id="panel-animation-options">
+              <div class="section-input">
+                <div class="section-label">Framerate</div>
+                <div class="select-10">
+                  <div class="option option-3 selected" value="webm">24 FPS</div>
+                  <div class="option option-3" value="mp4">30 FPS</div>
+                  <div class="option option-3 " value="gif">60 FPS <span class="pro-label">PRO</span></div>
+                </div>
+              </div>
+              <div class="section-input">
+                <div class="section-label">Quality</div>
+                <div class="section-right">
+                  <div class="select-9">
+                    <div class="option option-3" value="webm">360p</div>
+                    <div class="option option-3" value="mp4">420p</div>
+                    <div class="option option-3 selected" value="gif">720p</div>
+                    <div class="option option-3 " value="gif">1080p <span class="pro-label">PRO</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="download-bottom">
+            <div id="watermark"><div id="watermark-text">Remove watermark<span class="pro-label">PRO</span></div> <label class="switch"><input type="checkbox" disabled><span class="slider round"></span></label></div>
+            <div id="download-button"><img src="assets/download.png"> <span>Download</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="overlay"></div>
+    </div>
+    <div id="background-color-pick"></div>
+    <div id="left-panel">
+      <div id="left-panel-header">
+        <div id="logo"><img id="logo" src="assets/logo.svg"> Animockup <span>2.0</span></div>
+        <div id="user-settings"><img src="assets/user.svg"></div>
+        <div id="user-settings-dropdown">
+          <div class="user-option" id="upgrade-dropdown">Upgrade to PRO</div>
+          <div class="user-option" id="log-in">Log in</div>
+        </div>
+      </div>
+      <div id="left-panel-content">
+        <div class="panel-section">
+          <div class="panel-head">Device</div>
+          <div class="panel-options" id="nice-select">
+            <div class="select">
+            </div>
+          </div>
+        </div>
+        <div class="panel-section" id="screen-section">
+          <div class="panel-head">Screen</div>
+          <div id="upload">
+            <img id="upload-icon" src="assets/upload.png">
+            <div id="dragndrop">Drag and drop your file</div>
+            <div id="extra">Add a video or an image</div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <div class="panel-head">Background</div>
+          <table id="colors">
+            <tr>
+              <th><div class="color color-active" id="color1"></div></th>
+              <th><div class="color" id="color2"></div></th>
+              <th><div class="color" id="color3"></div></th>
+              <th><div class="color" id="color4"></div></th>
+              <th><div class="color" id="color5"></div></th>
+              <th><div class="color" id="color6"></div></th>
+              <th><div class="color" id="color7"></div></th>
+            </tr>
+            <tr>
+              <th><div class="color" id="color8"></div></th>
+              <th><div class="color" id="color9"></div></th>
+              <th><div class="color" id="color10"></div></th>
+              <th><div class="color" id="color11"></div></th>
+              <th><div class="color" id="color12"></div></th>
+              <th><div class="color" id="color13"></div></th>
+              <th><div class="color" id="color14"><img src="assets/plus.svg"></div></th>
+            </tr>
+          </table>
+        </div>
+        <div class="panel-section">
+          <div class="panel-head">Start animation</div>
+          <div id="panel-animation-options">
+            <div class="section-input">
+              <div class="section-label">Type</div>
+              <div class="section-right">
+                <div class="select-3">
+                  <div class="option option-3" value="none">None</div>
+                  <div class="option option-3" value="fade-in">Fade in</div>
+                  <div class="option option-3 selected" value="fade-in-left">Fade in left</div>
+                  <div class="option option-3" value="fade-in-right">Fade in right</div>
+                  <div class="option option-3" value="fade-in-top">Fade in top</div>
+                  <div class="option option-3" value="fade-in-bottom">Fade in bottom</div>
+                  <div class="option option-3" value="scale">Scale</div>
+                </div>
+              </div>
+            </div>
+            <div class="section-input">
+              <div class="section-label">Duration</div>
+              <div class="section-right">
+                <div class='dimensions' data-label='s'><input id='video-duration' value='2'></div>
+                <div class="select-4">
+                  <div class="option option-4" value="linear">Linear</div>
+                  <div class="option option-4" value="easing">Ease-in</div>
+                  <div class="option option-4" value="easing">Ease-out</div>
+                  <div class="option option-4 selected" value="easing">Ease-in-out</div>
+                  <div class="option option-4" value="easing">Ease-in-bounce</div>
+                  <div class="option option-4" value="easing">Ease-out-bounce</div>
+                  <div class="option option-4" value="easing">Ease-in-out-bounce</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <div class="panel-head">End animation</div>
+          <div id="panel-animation-options">
+            <div class="section-input">
+              <div class="section-label">Type</div>
+              <div class="section-right">
+                <div class="select-5">
+                  <div class="option option-3" value="none">None</div>
+                  <div class="option option-3" value="fade-out">Fade out</div>
+                  <div class="option option-3" value="fade-out-left">Fade out left</div>
+                  <div class="option option-3 selected" value="fade-out-right">Fade out right</div>
+                  <div class="option option-3" value="fade-out-top">Fade out top</div>
+                  <div class="option option-3" value="fade-out-bottom">Fade out bottom</div>
+                  <div class="option option-3" value="scale">Scale</div>
+                </div>
+              </div>
+            </div>
+            <div class="section-input">
+              <div class="section-label">Duration</div>
+              <div class="section-right">
+                <div class='dimensions' data-label='s'><input id='video-duration-2' value='2'></div>
+                <div class="select-8">
+                  <div class="option option-4" value="linear">Linear</div>
+                  <div class="option option-4" value="easing">Ease-in</div>
+                  <div class="option option-4" value="easing">Ease-out</div>
+                  <div class="option option-4 selected" value="easing">Ease-in-out</div>
+                  <div class="option option-4" value="easing">Ease-in-bounce</div>
+                  <div class="option option-4" value="easing">Ease-out-bounce</div>
+                  <div class="option option-4" value="easing">Ease-in-out-bounce</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="left-panel-actions">
+        <div id="copy">Upgrade to pro (only $10/month!) 🔥</div>
+        <div id="download"><img src="assets/download.png"> Preview & download</div>
+      </div>
+    </div>
+    <div id="content-area">
+      <a id="love" href="https://twitter.com/alyssaxuu" target="_blank">
+        Made with <img src="assets/heart.svg"> by Alyssa X
+      </a>
+      <div id="top-selector">
+        <div class="select-2">
+          <div class="option option-2 selected" value="twitter-post">
+            <img class='mockup-img' src='assets/twitter-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Twitter post</div>
+              <div class='mockup-details'>1200 x 675</div>
+            </div>
+          </div>
+          <div class="option option-2" value="twitter-banner">
+            <img class='mockup-img' src='assets/twitter-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Twitter banner</div>
+              <div class='mockup-details'>1500 x 500</div>
+            </div>
+          </div>
+          <div class="option option-2" value="instagram-square">
+            <img class='mockup-img' src='assets/instagram-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Instagram square post</div>
+              <div class='mockup-details'>1080 x 1080</div>
+            </div>
+          </div>
+          <div class="option option-2" value="instagram-portrait">
+            <img class='mockup-img' src='assets/instagram-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Instagram portrait post</div>
+              <div class='mockup-details'>1080 x 1350</div>
+            </div>
+          </div>
+          <div class="option option-2" value="instagram-landscape">
+            <img class='mockup-img' src='assets/instagram-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Instagram landscape post</div>
+              <div class='mockup-details'>1080 x 566</div>
+            </div>
+          </div>
+          <div class="option option-2" value="instagram-stories">
+            <img class='mockup-img' src='assets/instagram-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Instagram Stories</div>
+              <div class='mockup-details'>1080 x 1920</div>
+            </div>
+          </div>
+          <div class="option option-2" value="facebook-post">
+            <img class='mockup-img' src='assets/facebook-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Facebook post</div>
+              <div class='mockup-details'>1200 x 630</div>
+            </div>
+          </div>
+          <div class="option option-2" value="facebook-banner">
+            <img class='mockup-img' src='assets/facebook-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Facebook banner</div>
+              <div class='mockup-details'>1200 x 628</div>
+            </div>
+          </div>
+          <div class="option option-2" value="facebook-stories">
+            <img class='mockup-img' src='assets/facebook-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Facebook Stories</div>
+              <div class='mockup-details'>1080 x 1920</div>
+            </div>
+          </div>
+          <div class="option option-2" value="linkedin-post">
+            <img class='mockup-img' src='assets/linkedin-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>LinkedIn post</div>
+              <div class='mockup-details'>1200 x 627</div>
+            </div>
+          </div>
+          <div class="option option-2" value="linkedin-banner">
+            <img class='mockup-img' src='assets/linkedin-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>LinkedIn banner</div>
+              <div class='mockup-details'>1584 x 396</div>
+            </div>
+          </div>
+          <div class="option option-2" value="producthunt-thumbnail">
+            <img class='mockup-img' src='assets/producthunt-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Product Hunt thumbnail</div>
+              <div class='mockup-details'>600 x 600</div>
+            </div>
+          </div>
+          <div class="option option-2" value="producthunt-gallery">
+            <img class='mockup-img' src='assets/producthunt-logo.png'>
+            <div class='mockup-info'>
+              <div class='mockup-name'>Product Hunt gallery</div>
+              <div class='mockup-details'>1270 x 760</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="play"><img src="assets/play.svg"> <span>Play</span></div>
+      <div id="tools">
+        <div class="tool tool-active" id="cursor">
+          <img src="assets/cursor-active.png">
+          <span>Cursor</span>
+        </div>
+        <div class="vl"></div>
+        <div class="tool" id="hand">
+          <img src="assets/hand.png">
+          <span>Hand</span>
+        </div>
+        <div class="vl"></div>
+        <div class="tool" id="text">
+          <img src="assets/text.png">
+          <span>Text</span>
+        </div>
+        <div class="vl"></div>
+        <div class="tool" id="image">
+          <img src="assets/image.png">
+          <span>Image</span>
+        </div>
+        <div class="vl"></div>
+        <div id="stacking" class='stacking-off'>
+          <img id="arrow-up" src="assets/arrow-up.svg">
+          <img id="arrow-down" src="assets/arrow-down.svg">
+        </div>
+      </div>
+      <div id="help"><img src="assets/help.png"></div>
+      <div id="help-dropdown">
+        <a href="https://twitter.com/alyssaxuu" target="_blank" class="help-option">Twitter</a>
+        <a href="mailto:hi@alyssax.com" target="_blank" class="help-option">Contact us</a>
+        <a target="_blank" href="https://www.notion.so/Refund-Policy-1444632146cb4ab6853b29ecf2572238" class="help-option">Refund Policy</a>
+        <a target="_blank" href="https://necessary-duke-5f6.notion.site/Terms-of-Service-dbac14eccc264448aff6be96f027733d" class="help-option">Terms of service</a>
+        <a target="_blank" href="https://necessary-duke-5f6.notion.site/Privacy-Policy-e95417ed50b3403a8bd8a534b9cb2b72" class="help-option">Privacy Policy</a>
+      </div>
+    </div>
+    <div id="text-options">
+      <select id="font-picker" class="font-picker">
+      </select>
+      <div id="color-choose"></div>
+      <div id="text-format">
+        <div class="text-format" id="bold"><img src="assets/text-bold.svg"></div>
+        <div class="text-format" id="italic"><img src="assets/text-italic.svg"></div>
+        <div class="text-format" id="underline"><img src="assets/text-underline.svg"></div>
+        <div class="text-format" id="strikethrough"><img src="assets/text-strikethrough.svg"></div>
+      </div>
+      <div id="text-align">
+        <div class="text-align" id="align-text-left"><img src="assets/align-left.svg"></div>
+        <div class="text-align align-text-active" id="align-text-center"><img src="assets/align-center-active.svg"></div>
+        <div class="text-align" id="align-text-right"><img src="assets/align-right.svg"></div>
+        <div class="text-align" id="align-text-justify"><img src="assets/justify.svg"></div>
+      </div>
+      <div class="arrow down"></div>
+      <div id="text-color"></div>
+    </div>
+    <div id="canvas-area">
+      <canvas id="canvas"></canvas>
+    </div>
+    <a href="https://www.producthunt.com/posts/animockup-2-0?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-animockup-2-0" id="ph" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=319895&theme=dark" alt="Animockup 2.0 - Create stunning product teasers with animated mockups | Product Hunt" style="width: 200px; height: 50px;" width="200" height="50" /></a>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyCHGaIkNFrdIGtJ-wCrta_ZGFo7XPI1HmQ",
+        authDomain: "animockup-a9a83.firebaseapp.com",
+        projectId: "animockup-a9a83",
+        storageBucket: "animockup-a9a83.appspot.com",
+        messagingSenderId: "972446574268",
+        appId: "1:972446574268:web:320ff95b7c09fe7b7312b9"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script src="js/libraries/anime.min.js"></script>
+    <script src="js/libraries/fabric.min.js"></script>
+    <script src="js/libraries/fixwebm.js"></script>
+    <script src="js/libraries/convert.js"></script>
+    <script src="js/libraries/jquery.nice-select.min.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/align.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
