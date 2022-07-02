@@ -31,9 +31,9 @@ Made by [Alyssa X](https://twitter.com/alyssaxuu)
 ## Self-hosting Animockup
 In order to self-host Animockup, you will need to make a few changes.
 
-1- Create a [Firebase project](https://firebase.google.com/)<br>
-2- Update the firebaseConfig object in the [index.html](src/index.html) with your own values<br>
-3- Animockup uses Paddle for subscriptions. You can either remove it entirely, or update with your own values in the [main.js](src/main.js) and [api.php](src/api.php) files.
+1. Create a [Firebase project](https://firebase.google.com/)<br>
+2. Update the firebaseConfig object in the [index.html](src/index.html) with your own values<br>
+3. Animockup uses Paddle for subscriptions. You can either remove it entirely, or update with your own values in the [main.js](src/main.js) and [api.php](src/api.php) files.
 
 ## Libraries used
 - [jQuery](https://jquery.com/) - for better event handling and DOM manipulation
