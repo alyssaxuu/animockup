@@ -9,6 +9,8 @@ Animockup is a web-based tool that helps you create animated mockups for your pr
 
 <a href="https://www.producthunt.com/posts/animockup-2-0?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-animockup-2-0" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=319895&theme=light" alt="Animockup 2.0 - Create stunning product teasers with animated mockups | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
+> You can support this project (and many others) through [GitHub Sponsors](https://github.com/sponsors/alyssaxuu)! ❤️
+
 Made by [Alyssa X](https://twitter.com/alyssaxuu)
 
 ## Table of contents
