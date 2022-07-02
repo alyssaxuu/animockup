@@ -45,7 +45,7 @@ In order to self-host Animockup, you will need to make a few changes.
 - [Anime.js](https://animejs.com/) - for animating the mockups
 - [fix-webm-duration](https://github.com/yusitnikov/fix-webm-duration) - to make webm videos seekable
 - [Paddle](https://paddle.com/) - for handling subscription payments
-- [Firebase](https://paddle.com/) - for authentication
+- [Firebase](https://firebase.com/) - for authentication
 
 #
 
